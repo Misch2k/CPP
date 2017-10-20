@@ -7,11 +7,10 @@
 
 #include <iostream>
 #include "Collection.h"
-#include "Array.h"
 #include "Node.h"
 
 template <class T>
-class LinkedList : public Collection{
+class LinkedList : public Collection<T>{
 private:
     Node<T> * head;
     Node<T> * tail;
@@ -25,12 +24,10 @@ public:
     LinkedList<T>(const LinkedList<T> & obj);
     LinkedList<T> operator= (const LinkedList<T> & obj);
 
-    template <class U>
-    friend std::ostream & operator<<(std::ostream & stream, const LinkedList<U> & obj);
 
+    std::ostream & printObj(std::ostream & stream);
     int size() const;
     void add(T value);
-
     T get(int index, bool & ok) const;
     void set(int index, T value, bool & ok);
     void remove(int index, bool & ok);

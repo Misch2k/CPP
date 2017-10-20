@@ -3,7 +3,8 @@
 //
 
 #include "Array.h"
-template <class T>
+
+template<class T>
 Array<T>::Array(int size) {
     if (size <= 10) {
         maxSize = 10;
@@ -14,13 +15,13 @@ Array<T>::Array(int size) {
     values = new T[maxSize];
 }
 
-template <class T>
+template<class T>
 Array<T>::~Array() {
-    delete [] values;
+    delete[] values;
 }
 
-template <class T>
-Array<T>::Array(const Array & obj) {
+template<class T>
+Array<T>::Array(const Array &obj) {
     maxSize = obj.maxSize;
     currentSize = obj.currentSize;
 
@@ -31,9 +32,9 @@ Array<T>::Array(const Array & obj) {
     }
 }
 
-template <class T>
-Array<T> Array<T>::operator= (const Array<T> & obj) {
-    delete [] values;
+template<class T>
+Array<T> &Array<T>::operator=(const Array<T> &obj) {
+    delete[] values;
     maxSize = obj.maxSize;
     currentSize = obj.currentSize;
 
@@ -45,30 +46,31 @@ Array<T> Array<T>::operator= (const Array<T> & obj) {
     return *this;
 }
 
-template <class T>
+template<class T>
 int Array<T>::size() {
     return currentSize;
 }
 
-template <class T>
+template<class T>
 void Array<T>::add(T value) {
     resize();
     values[currentSize] = value;
     currentSize++;
 }
 
-template <class T>
-T Array<T>::get(int index, bool & ok) {
+template<class T>
+T Array<T>::get(int index, bool &ok) {
     if (isIndexValid(index)) {
         ok = true;
         return values[index];
     } else {
         ok = false;
     }
+    return NULL;
 }
 
-template <class T>
-void Array<T>::set(int index, T value, bool & ok) {
+template<class T>
+void Array<T>::set(int index, T value, bool &ok) {
     if (isIndexValid(index)) {
         ok = true;
         values[index] = value;
@@ -77,12 +79,12 @@ void Array<T>::set(int index, T value, bool & ok) {
     }
 }
 
-template <class T>
-void Array<T>::remove(int index, bool & ok) {
+template<class T>
+void Array<T>::remove(int index, bool &ok) {
     if (isIndexValid(index)) {
         resize();
-        for (int i=index; i<currentSize-1; i++) {
-            values[i] = values[i+1];
+        for (int i = index; i < currentSize - 1; i++) {
+            values[i] = values[i + 1];
         }
         currentSize -= 1;
     } else {
@@ -90,43 +92,44 @@ void Array<T>::remove(int index, bool & ok) {
     }
 }
 
-template <class T>
+template<class T>
 bool Array<T>::isIndexValid(int index) {
     return index >= 0 && index < currentSize;
 }
 
-template <class T>
+template<class T>
 void Array<T>::resize() {
     int newSize;
     bool performResize = false;
 
     if (currentSize >= maxSize) {
-        newSize = maxSize*2;
+        newSize = maxSize * 2;
         performResize = true;
-    } else if (currentSize <= maxSize/4 && maxSize >= 10) {
-        newSize = maxSize/2;
+    } else if (currentSize <= maxSize / 4 && maxSize >= 10) {
+        newSize = maxSize / 2;
         performResize = true;
     }
 
     if (performResize) {
         T *tmp = new T[newSize];
-        for (int i=0; i<currentSize; i++) {
+        for (int i = 0; i < currentSize; i++) {
             tmp[i] = values[i];
         }
         maxSize = newSize;
-        delete [] values;
+        delete[] values;
         values = tmp;
     }
 }
 
-/*
-std::ostream& operator<<(std::ostream& stream, const Array& obj) {
-  stream << "****" << endl;
-  stream << "maxSize = " << obj.maxSize << ", currentSize = " << obj.currentSize << endl;
-  for (int i=0; i<obj.currentSize; i++) {
-    stream << obj.values[i] << ",";
-  }
-  stream << endl;
-  stream << "****";
+template <class T>
+std::ostream &Array<T>::printObj(std::ostream &stream) {
+    stream << "****" << std::endl;
+    stream << "maxSize = " << this->maxSize << ", currentSize = " << this->currentSize << std::endl;
+    for (int i = 0; i < this->currentSize; i++) {
+        stream << this->values[i] << ",";
+    }
+    stream << std::endl;
+    stream << "****";
+
+    return stream;
 }
-*/

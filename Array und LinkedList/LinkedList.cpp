@@ -125,13 +125,13 @@ void LinkedList<T>::set(int index, T value, bool & ok) {
 }
 
 template <class U>
-std::ostream & operator<<(std::ostream & stream, const LinkedList<U> & obj) {
-    stream << "Head: " << obj.head << endl;
-    stream << "Tail: " << obj.tail << endl;
+std::ostream & LinkedList<U>::printObj(std::ostream & stream){
+    stream << "Head: " << this->head << endl;
+    stream << "Tail: " << this->tail << endl;
     stream << "=============================" << endl;
     int index = 0;
 
-    for (Node<U> *tmp = obj.head; tmp != 0; tmp = tmp->next) {
+    for (Node<U> *tmp = this->head; tmp != 0; tmp = tmp->next) {
         stream << "Index: " << index << endl;
         stream << "MyAddress: " << tmp << endl;
         stream << "Value: " << tmp->value << endl;

@@ -7,12 +7,9 @@
 
 #include <iostream>
 #include "Collection.h"
-#include "Array.h"
-#include "LinkedList.h"
-#include "Node.h"
 
 template <class T>
-class Array : public Collection{
+class Array : public Collection<T>{
 private:
     T *values;
     int maxSize;
@@ -21,19 +18,20 @@ private:
     bool isIndexValid(int index);
     void resize();
 public:
-    //friend std::ostream& operator<<(std::ostream& stream, const Array& obj);
 
     Array(int size=0);
 
     ~Array();
-    Array(const Array & obj);
-    Array operator= (const Array & obj);
+    Array<T>(const Array & obj);
+    Array<T> &operator= (const Array & obj);
 
     int size();
     void add(T value);
     T get(int index, bool & ok);
     void set(int index, T value, bool & ok);
     void remove(int index, bool & ok);
+    std::ostream & printObj(std::ostream &stream);
+
 };
 
 

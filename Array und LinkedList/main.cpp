@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Collection.h"
-#include "Array.h"
-#include "LinkedList.h"
-#include "Node.h"
+#include "LinkedList.cpp"
 
 using namespace std;
 
@@ -11,16 +9,11 @@ int main(int argc,char **argv) {
 
 
 
-    Array<int> obj;
+    Collection<int> *obj = new LinkedList<int>;
 
-    for (int i= 0; i < 10;i++){
-        obj.add(i);
-    }
-    bool ok = true;
-    for(int i =0; i < 10;i++){
-        cout << obj.get(i,ok) << endl;
-    }
+    obj->add(4);
 
-    //cout << obj;
+    cout << *obj << endl;
+
     return 0;
 }
